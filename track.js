@@ -4,6 +4,13 @@ class Track {
         this.radius = radius;
     }
 
+    getPosition(offset){
+        return{
+            x: this.center.x + Math.cos(offset) * this.radius,
+            y: this.center.y - Math.sin(offset) * this.radius
+        }
+    }
+
     draw(ctx) {
         // Starts a new drawing path so that the circle can be drawn without affecting other drawings.
         ctx.beginPath();

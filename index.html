@@ -8,6 +8,8 @@
   <body>
     <canvas id="myCanvas" style="background-color: black"></canvas>
     <script src="track.js"></script>
+    <script src="ball.js"></script>
+
     <script>
       const size = 500;
       myCanvas.width = size;
@@ -24,7 +26,20 @@
       const trackRadius = 100;
       // the Track is a class created in file track.js
       const track = new Track(trackCenter, trackRadius); // this is to make half circle
-      track.draw(ctx);
+      // Started with ball it should be on track so we have this track in Ball class
+      const ballRadius = 10;
+      const ballSpeed = 0.1;
+      const ball = new Ball(track, ballRadius, ballSpeed);
+
+      animate();
+
+      function animate() {
+        ctx.clearRect(0,0,size,size)
+        track.draw(ctx);
+        ball.move();
+        ball.draw(ctx);
+        requestAnimationFrame(animate)
+      }
     </script>
   </body>
 </html>
