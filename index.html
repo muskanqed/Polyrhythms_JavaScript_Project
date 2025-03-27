@@ -1,16 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>PolyRhytms</title>
-</head>
-<body>
-<canvas id="myCanvas" style="background-color: black;"></canvas>
-<script>
-    const size = 500;
-    myCanvas.width = size;
-    myCanvas.height = size;
-</script>
-</body>
+  </head>
+  <body>
+    <canvas id="myCanvas" style="background-color: black"></canvas>
+    <script src="track.js"></script>
+    <script>
+      const size = 500;
+      myCanvas.width = size;
+      myCanvas.height = size;
+
+      // Getting the canvas context i.e 2d
+      const ctx = myCanvas.getContext("2d");
+
+      const trackCenter = { x: size / 2, y: size / 2 };
+      const trackRadius = 100;
+      const track = new Track(trackCenter, trackRadius); // this is to make half circle
+    </script>
+  </body>
 </html>
