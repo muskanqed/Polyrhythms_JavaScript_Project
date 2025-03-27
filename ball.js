@@ -1,5 +1,5 @@
 class Ball {
-    constructor(track,radius,speed){
+    constructor(track, radius, speed) {
         this.track = track;
         this.radius = radius;
         this.speed = speed;
@@ -7,14 +7,14 @@ class Ball {
         this.center = this.track.getPosition(this.offset);
     }
 
-    move(){
-        this.offset = this.speed + 1;
+    move() {
+        this.offset += this.speed;
         this.center = this.track.getPosition(this.offset);
     }
 
-    draw(ctx){
+    draw(ctx) {
         ctx.beginPath();
-        ctx.arc(this.center.x,this.center.y,this.radius,0,Math.PI*2);
+        ctx.arc(this.center.x, this.center.y, this.radius, 0, Math.PI * 2);
         ctx.strokeStyle = "white"
         ctx.stroke();
     }
