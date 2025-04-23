@@ -6,39 +6,30 @@
     <title>PolyRhytms</title>
   </head>
   <body>
-    <canvas id="myCanvas" style="background-color: black"></canvas>
+    <canvas id="myCanvas" style="background-color: aquamarine"></canvas>
     <script src="track.js"></script>
     <script src="ball.js"></script>
-
     <script>
       const size = 500;
       myCanvas.width = size;
       myCanvas.height = size;
-
-      // Getting the canvas context i.e 2d
-      // Retrieves the 2D rendering context to draw shapes, lines, and arcs.
       const ctx = myCanvas.getContext("2d");
-      // Calculates the center of the canvas
+
       const trackCenter = { x: size / 2, y: size / 2 };
-      // controls how large the arc will be but does not affect its alignment.
-      // The arc starts 100 pixels away from the center.
-      // It extends 100 pixels outward in all directions.
       const trackRadius = 100;
-      // the Track is a class created in file track.js
-      const track = new Track(trackCenter, trackRadius); // this is to make half circle
-      // Started with ball it should be on track so we have this track in Ball class
       const ballRadius = 10;
       const ballSpeed = 0.01;
-      const ball = new Ball(track, ballRadius, ballSpeed);
 
+      const track = new Track(trackCenter, trackRadius);
+      const ball = new Ball(track, ballRadius, ballSpeed);
       animate();
 
       function animate() {
-        ctx.clearRect(0,0,size,size)
+        ctx.clearRect(0,0,size,size);
         track.draw(ctx);
         ball.move();
         ball.draw(ctx);
-        requestAnimationFrame(animate)
+        requestAnimationFrame(animate);
       }
     </script>
   </body>
