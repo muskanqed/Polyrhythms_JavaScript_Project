@@ -3,34 +3,67 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PolyRhytms</title>
+    <title>PolyRhythms</title>
   </head>
   <body>
-    <canvas id="myCanvas" style="background-color: aquamarine"></canvas>
+    <div style="display: flex; flex-direction: column">
+      <div style="display: flex; justify-content: center">
+        <h1>PolyRhythms</h1>
+      </div>
+      <div style="display: flex; justify-content: center">
+        <canvas id="myCanvas" style="background-color: black"></canvas>
+      </div>
+    </div>
     <script src="sound.js"></script>
     <script src="track.js"></script>
     <script src="ball.js"></script>
 
     <script>
-      const size = 500;
+      const size = 800;
       myCanvas.width = size;
-      myCanvas.height = size;
+      myCanvas.height = 400;
       const ctx = myCanvas.getContext("2d");
 
       const trackCenter = { x: size / 2, y: size / 2 };
-      const trackRadius = 100;
-      const ballRadius = 10;
-      const ballSpeed = 0.01;
+      const trackMinRadius = 50;
+      const trackStep = 15;
+      const ballRadius = 6;
+      const ballMinSpeed = 0.01;
+      ballSpeedStep = -0.0001;
 
-      const track = new Track(trackCenter, trackRadius);
-      const ball = new Ball(track, ballRadius, ballSpeed);
+      const soundFrequencies = [
+        1760, 1567.98, 1396.91, 1318.51, 1174.66, 1046.5, 987.77, 880, 783.99,
+        698.46, 659.25, 587.33, 523.25, 493.88, 440, 392, 349.23, 329.63,
+        293.66, 261.63,
+      ];
+
+      const tracks = [];
+      const balls = [];
+      const N = 20;
+
+      for (let i = 0; i < N; i++) {
+        const trackRadius = trackMinRadius + i * trackStep;
+        const ballSpeed = ballMinSpeed + i * ballSpeedStep;
+        const ballSoundFrequencies = soundFrequencies[i];
+        const hue = (i * 360) / N;
+        const track = new Track(trackCenter, trackRadius, hue);
+        const ball = new Ball(
+          track,
+          ballRadius,
+          ballSpeed,
+          ballSoundFrequencies,
+          hue
+        );
+        tracks.push(track);
+        balls.push(ball);
+      }
       animate();
 
       function animate() {
         ctx.clearRect(0, 0, size, size);
-        track.draw(ctx);
-        ball.move();
-        ball.draw(ctx);
+        tracks.forEach((track) => track.draw(ctx));
+        balls.forEach((ball) => ball.move());
+        balls.forEach((ball) => ball.draw(ctx));
         requestAnimationFrame(animate);
       }
     </script>
